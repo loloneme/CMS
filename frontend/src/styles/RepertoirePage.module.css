@@ -1,0 +1,28 @@
+.back{
+    background: linear-gradient(135.00deg, rgb(0, 0, 0) 0.03%,rgb(37, 15, 0) 42.135%,rgb(100, 41, 2) 76.046%,rgb(158, 57, 0) 100%);    color: rgb(255, 255, 255);
+    min-height: 100vh;
+    font-family: 'Forum', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.container{
+    display: grid;
+    place-items: center;
+}
+
+.filter{
+    display: inline-flex;
+    align-items: center;
+    margin: 20px 0px;
+    font-size: 25px;
+    column-gap: 20px;
+}
+
+.repertoire{
+    width: 90%;
+}
+

@@ -1,0 +1,167 @@
+.container{
+    color: white;
+    display: grid;
+    place-items: center;
+}
+
+.form_container{
+    display: grid;
+}
+
+.form{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 30px;
+}
+
+.image_uploading{
+    display: flex;
+    flex-direction: column;
+}
+
+.image{
+    border-radius: 10px;
+    margin-top: 10px;
+    height: 300px;
+    width: 400px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    row-gap: 10px;
+    margin-top: 20px;
+}
+
+.input{
+    font-family: 'Forum', sans-serif;
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 20px;
+
+    border-radius: 4px;
+    border: none;
+    color: black;
+    /* border-bottom: 2px solid black; */
+}
+
+.input::placeholder{
+    color: rgb(161, 161, 161);
+}
+
+.desc{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.desc_input{
+    border-radius: 4px;
+    font-family: 'Forum', sans-serif;
+    font-size: 15px;
+    border: none;
+    color: black;
+    padding: 5px 10px;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    height: auto;
+}
+
+/* .halls_container{
+    display: inline-flex;
+    width: 100%;
+} */
+
+label{
+    font-size: 20px;
+}
+
+
+.hall{
+    display: grid;
+    grid-template-columns: 150px 150px 200px auto;
+    gap: 10px;
+    align-items: end;
+    margin-top: 10px;
+}
+
+.hall_input{
+    margin: 0;
+    border-radius: 5px;
+    height: 30px;
+    max-width: 150px;
+    font-size: 15px;
+    padding: 0px 5px;
+
+    border: none;
+    /* background-color: transparent; */
+}
+
+.delete{
+    all: unset;
+    /* display: inline-block; */
+    cursor: pointer;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+}
+
+.add_hall_button{
+    all: unset;
+    /* display: inline-block; */
+    cursor: pointer;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 100px auto 100px;
+    /* width: 100%; */
+}
+
+.delete_button{
+    font-family: 'Forum', sans-serif;
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.button{
+    font-family: 'Forum', sans-serif;
+    justify-self: center;
+
+    margin-top: 20px;
+    width: 100px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.button:hover{
+    background-color: black;
+    color: white;
+}
+
+.delete_button:hover{
+    background-color: white;
+    color: black;
+}
+/* .button:last-of-type {
+    margin-left:250px;
+} */

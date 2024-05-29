@@ -1,0 +1,38 @@
+.movie{
+    display: grid;
+    grid-template-columns: 120px auto;
+        border-radius: 20px;
+    background: rgba(117, 117, 117, 0.34);
+    padding: 20px;
+}
+
+.image{
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.info{
+    padding: 0px 20px;
+}
+
+.movie_info{
+    margin-bottom: 15px;
+}
+
+.sessions{
+    display: inline-flex;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.session{
+    text-align: center;
+    border-radius: 20px;
+    background: rgb(210, 126, 79);
+    width: 100px;
+}
+
+.time{
+    padding: 5px 10px;
+}

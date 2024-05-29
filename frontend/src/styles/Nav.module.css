@@ -1,0 +1,29 @@
+.position{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: inline-flex;
+    justify-content: space-evenly;
+    width: 520px;
+    height: fit-content;
+    box-sizing: border-box;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    background: rgba(158, 152, 152, 0.25);
+}
+
+.link_area{
+    padding: 5px 0;
+}
+
+.active_link{
+    color: black;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}

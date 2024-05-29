@@ -1,0 +1,13 @@
+.back{
+    background: linear-gradient(135.00deg, rgb(0, 0, 0) 0.03%,rgb(0, 27, 37) 42.135%,rgb(2, 73, 100) 76.046%,rgb(0, 103, 158) 95.638%);    color: rgb(255, 255, 255);
+    min-height: 100vh;
+    font-family: 'Forum', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.container{
+    display: grid;
+    /* place-items: center; */
+}
