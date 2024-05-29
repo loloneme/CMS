@@ -18,9 +18,16 @@ type Server struct {
 }
 
 func (s *Server) Run(cfg Config, handler http.Handler) error {
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},                                       // Разрешить запросы только с этого источника
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}, // Разрешить методы
+		AllowedHeaders:   []string{"Origin", "Content-Type", "Authorization"}, // Разрешить заголовки
+		AllowCredentials: true,                                                // Разрешить отправку куки и заголовка авторизации с клиента
+	})
+
 	s.httpServer = &http.Server{
 		Addr:           ":" + cfg.Port,
-		Handler:        cors.Default().Handler(handler),
+		Handler:        c.Handler(handler),
 		MaxHeaderBytes: 1 << 20,
 		ReadTimeout:    cfg.Timeout,
 		WriteTimeout:   cfg.Timeout,

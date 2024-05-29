@@ -7,72 +7,81 @@ import (
 	"strconv"
 )
 
-func (h *Handler) GetAllCinemas(c *gin.Context) {
-	res, err := h.services.Cinema.GetAllCinemas()
+func (h *Handler) GetAllMovies(c *gin.Context) {
+	res, err := h.services.Movie.GetAllMovies()
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
+
 	c.JSON(200, res)
 }
 
-func (h *Handler) GetCinema(c *gin.Context) {
-	cinemaID, err := strconv.Atoi(c.Param("id"))
+func (h *Handler) GetAllGenres(c *gin.Context) {
+	res, err := h.services.GetAllGenres()
 	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(200, res)
+}
+
+func (h *Handler) GetAllStudios(c *gin.Context) {
+	res, err := h.services.GetAllStudios()
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(200, res)
+}
+
+func (h *Handler) GetAllCountries(c *gin.Context) {
+	res, err := h.services.GetAllCountries()
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(200, res)
+}
+
+func (h *Handler) GetAllActors(c *gin.Context) {
+	res, err := h.services.GetAllActors()
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(200, res)
+}
+
+func (h *Handler) CreateMovie(c *gin.Context) {
+	var movie entities.Movie
+	if err := c.BindJSON(&movie); err != nil {
 		ErrorResponse(c, http.StatusBadRequest, err.Error())
 	}
 
-	res, err := h.services.GetCinemaById(int64(cinemaID))
+	movieID, err := h.services.CreateMovie(&movie)
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
-	c.JSON(200, res)
-}
 
-//func (h *Handler) GetAllCities(c *gin.Context) {
-//	res, err := h.services.GetAllCities()
-//	if err != nil {
-//		ErrorResponse(c, http.StatusInternalServerError, err.Error())
-//	}
-//	c.JSON(200, res)
-//}
-
-func (h *Handler) GetAllCategories(c *gin.Context) {
-	res, err := h.services.GetAllCategories()
-	if err != nil {
-		ErrorResponse(c, http.StatusInternalServerError, err.Error())
-	}
-	c.JSON(200, res)
-}
-
-func (h *Handler) CreateCinema(c *gin.Context) {
-	var cinema entities.Cinema
-	if err := c.BindJSON(&cinema); err != nil {
-		ErrorResponse(c, http.StatusBadRequest, err.Error())
-	}
-
-	cinemaID, err := h.services.CreateCinema(&cinema)
-	if err != nil {
-		ErrorResponse(c, http.StatusInternalServerError, err.Error())
-	}
 	c.JSON(http.StatusCreated, map[string]interface{}{
-		"cinema_id": cinemaID,
+		"movie_id": movieID,
 	})
 }
 
-func (h *Handler) UpdateCinema(c *gin.Context) {
-	var cinema entities.Cinema
-	cinemaID, err := strconv.Atoi(c.Param("id"))
+func (h *Handler) UpdateMovie(c *gin.Context) {
+	var movie entities.Movie
+	movieID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		ErrorResponse(c, http.StatusBadRequest, err.Error())
 	}
 
-	if err = c.BindJSON(&cinema); err != nil {
+	if err = c.BindJSON(&movie); err != nil {
 		ErrorResponse(c, http.StatusBadRequest, err.Error())
 	}
 
-	cinema.Id = int64(cinemaID)
+	movie.Id = int64(movieID)
 
-	err = h.services.UpdateCinema(&cinema)
+	err = h.services.Movie.UpdateMovie(&movie)
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
@@ -81,13 +90,13 @@ func (h *Handler) UpdateCinema(c *gin.Context) {
 	})
 }
 
-func (h *Handler) DeleteCinema(c *gin.Context) {
-	cinemaID, err := strconv.Atoi(c.Param("id"))
+func (h *Handler) DeleteMovie(c *gin.Context) {
+	movieID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		ErrorResponse(c, http.StatusBadRequest, err.Error())
 	}
 
-	err = h.services.DeleteCinema(int64(cinemaID))
+	err = h.services.Movie.DeleteMovie(int64(movieID))
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}

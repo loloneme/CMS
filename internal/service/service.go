@@ -9,6 +9,9 @@ type Service struct {
 	Authorization
 	TokenManager
 	Cinema
+	Movie
+	Hall
+	Repertoire
 }
 
 type Authorization interface {
@@ -33,8 +36,47 @@ type Cinema interface {
 	CreateCinema(cinema *entities.Cinema) (int64, error)
 	//GetCinema(cinemaId int64) (entities.Cinema, error)
 	GetAllCinemas() ([]entities.Cinema, error)
+	GetCinemaById(cinemaID int64) (entities.Cinema, error)
+
 	GetAllCategories() ([]entities.Category, error)
-	GetAllStatuses() ([]entities.Status, error)
+
+	//CreateCategory(category string) (int64, error)
+	UpdateCinema(cinema *entities.Cinema) error
+	DeleteCinema(cinemaID int64) error
+}
+
+type Hall interface {
+	//CreateHall(cinema *entities.Cinema) (int64, error)
+	//GetCinema(cinemaId int64) (entities.Cinema, error)
+	//GetAllHalls() ([]entities.Cinema, error)
+	GetAllHallCategories() ([]entities.HallCategory, error)
+
+	//CreateCategory(category string) (int64, error)
+	//UpdateCinema(cinema *entities.Cinema) error
+	//DeleteCinema(cinemaID int64) error
+}
+
+type Movie interface {
+	CreateMovie(movie *entities.Movie) (int64, error)
+	GetAllMovies() ([]entities.Movie, error)
+	GetAllGenres() ([]entities.Genre, error)
+	GetAllActors() ([]entities.Actor, error)
+	GetAllStudios() ([]entities.Studio, error)
+	GetAllCountries() ([]entities.Country, error)
+
+	UpdateMovie(movie *entities.Movie) error
+	DeleteMovie(movieID int64) error
+}
+
+type Repertoire interface {
+	CreateSession(session *entities.Session) (int64, error)
+	GetSession(sessionId int64) (entities.Session, error)
+	GetAllSessionsByCinemas() ([]entities.Repertoire, error)
+	GetAllMovies() ([]entities.Movie, error)
+	GetAllCinemas() ([]entities.Cinema, error)
+	GetSessionsByCinemaAndMovie(cinemaID, movieID int64) ([]entities.Session, error)
+	//GetSessionsByMovie(movieID int64) ([]entities.Session, error)
+	//GetAllSessionsByMovie() ([]entities.Session, error)
 
 	//CreateCategory(category string) (int64, error)
 	//UpdateCinema(cinema *entities.Cinema) error
@@ -45,5 +87,8 @@ func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization, NewTokenManagerService(repos)),
 		Cinema:        NewCinemaService(repos.Cinema),
+		Movie:         NewMovieService(repos.Movie),
+		Hall:          NewHallService(repos.Hall),
+		Repertoire:    NewRepertoireService(repos.Repertoire),
 	}
 }
