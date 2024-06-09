@@ -17,7 +17,7 @@ const CinemaComponent = ({onClick, props}) => {
         <div className={style.container} style={backStyles} onClick={onClick}>
             <div className={style.info}>
                 <div className={style.name}>{props.cinema_name}</div>
-                <div className={style.addres}>{props.address}, {props.city}</div>
+                <div className={style.addres}>{props.address}</div>
                 <div className={style.phone}>{props.cinema_phone}</div>
             </div>
         </div>

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import Sessions from "./Sessions"
 import { getRepertoiresByCinemaAndMovie } from "../utils/DataFetching"
 import style from "../styles/CinemaRepertoire.module.css"
+import { convertToISO } from "../utils/utils"
 
 
-const CinemaRepertoire = ({ movies, cinema }) => {
+const CinemaRepertoire = ({ movies, cinema, date, onClick }) => {
     const [sessions, setSessions] = useState([])
 
     useEffect(() => {
@@ -16,11 +17,10 @@ const CinemaRepertoire = ({ movies, cinema }) => {
                     for (const movie of movies) {
                         const data = await getRepertoiresByCinemaAndMovie(cinema, movie.movie_id);
                         if (data && data.length > 0) {
-                            allSessions.push({ ...movie, sessions: data });
+                            allSessions.push({ ...movie, sessions: data.filter((item) => convertToISO(item.session_date) === date) });
                         }
                     }
                     setSessions(allSessions);
-                    console.log(allSessions)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -28,20 +28,21 @@ const CinemaRepertoire = ({ movies, cinema }) => {
         };
 
         fetchAllSessions();
-    }, [cinema, movies]);
+    }, [cinema, movies, date]);
 
     return (
         <>  
             {sessions.map((item) => {
                 return (
-                    <div className={style.movie}>
+                    item.sessions.length != 0 &&
+                    <div className={style.movie} style={{marginBottom: "10px"}}>
                         <img className={style.image} src={`data:image/png;base64,${item.movie_image}`}/>
                         <div className={style.info}>
                             <div className={style.movie_info}>
                                 {item.movie_name} {item.rating}
                             </div>
                             <div className={style.sessions}>
-                                <Sessions sessions={item.sessions} />
+                                <Sessions sessions={item.sessions} onClick={onClick}/>
                             </div>
                         </div>
 

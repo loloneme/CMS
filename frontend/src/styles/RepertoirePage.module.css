@@ -1,6 +1,7 @@
 .back{
     background: linear-gradient(135.00deg, rgb(0, 0, 0) 0.03%,rgb(37, 15, 0) 42.135%,rgb(100, 41, 2) 76.046%,rgb(158, 57, 0) 100%);    color: rgb(255, 255, 255);
-    min-height: 100vh;
+    height: 100vh;
+        overflow-y: auto;
     font-family: 'Forum', sans-serif;
     font-size: 20px;
     font-weight: 400;
@@ -14,15 +15,98 @@
     place-items: center;
 }
 
+.title{
+    font-size: 30px;
+    margin: 30px 0px;
+}
+
+.movie_title{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
 .filter{
     display: inline-flex;
-    align-items: center;
-    margin: 20px 0px;
+    margin: 30px 0px;
     font-size: 25px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.movie_repertoire_filter{
+    margin: 30px 0px;
+
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    font-size: 25px;
+
+}
+
+.cinema_select{
+    display: inline-flex;
     column-gap: 20px;
+    align-items: center;
+}
+
+.date_select{
+    display: inline-flex;
+    column-gap: 20px;
+    align-items: center;
 }
 
 .repertoire{
     width: 90%;
+    
 }
 
+input[type="date"] {
+    font-family: 'Forum', sans-serif;
+    font-size: 15px;
+    color: white;
+    background-color: rgba(158, 152, 152, 0.25);
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 3px 5px;
+    padding-left: 20px;
+  }
+  
+  input[type="date"]:focus {
+    color: rgb(158, 57, 0);
+    border-color: rgb(158, 57, 0);
+    outline: none;
+  }
+  
+  input[type="date"]::-webkit-datetime-edit {
+    color: white; 
+    font-family: 'Forum', sans-serif;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .back::-webkit-scrollbar {
+    width: 10px;
+}
+
+.back::-webkit-scrollbar-track {
+    background: transparent ;
+}
+
+.back::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+
+}
+
+.back::-webkit-scrollbar-thumb:hover {
+    background: black;
+}

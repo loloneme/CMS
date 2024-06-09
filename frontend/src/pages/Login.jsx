@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { signIn } from '../utils/DataFetching'
-import axios from "axios"
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import style from "../styles/LoginPage.module.css"
+import {jwtDecode} from 'jwt-decode';
+import { useUser } from '../utils/UserContext';
+import axios from 'axios';
+
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -10,8 +13,10 @@ const Login = () => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     let navigate = useNavigate();
+    const {user, setUser} = useUser();
 
-    const logIn = async (email, password) => {
+
+    const logIn = async (email, password) => { 
         try{
             const data = await signIn({
                 email: email,
@@ -19,13 +24,38 @@ const Login = () => {
             })
 
             localStorage.setItem("token", data.access_token)
-            navigate('/cinemas', { replace: true })
+
+            const decodedToken = jwtDecode(data.access_token);
+            setUser({
+                cinemaId: decodedToken.cinema,
+                role: decodedToken.role,
+              });
+
+            if (user.role === "ADMIN"){
+                navigate('/users', { replace: true })
+            } else {
+                navigate('/cinemas', { replace: true })
+
+            }
+
 
         } catch (error) {
-            console.log(error)
+            if (axios.isAxiosError(error) && error.response) {
+                if (error.response.status === 401) {
+                    setPasswordError('Неверный пароль и/или адрес эл. почты');
+                } else {
+                    console.error(error);
+                }
+            } else {
+                console.error(error);
+            }
         }
     }
 
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
 
 
     const submitLogin = (e) => {
@@ -36,10 +66,10 @@ const Login = () => {
             return
         }
 
-        // if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-        //     setEmailError('Please enter a valid email')
-        //     return
-        // }
+        if (!isValidEmail(email)) {
+            setEmailError('Пожалуйста, введите корректный адрес эл. почты')
+            return
+        }
 
         if ('' === password) {
             setPasswordError('Пожалуйста, введите пароль')

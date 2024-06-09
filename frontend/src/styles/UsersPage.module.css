@@ -1,0 +1,31 @@
+.back{
+    background: linear-gradient(135.00deg, rgb(0, 0, 0) 0.03%,rgb(1, 46, 0) 42.736%,rgb(7, 71, 0) 64.314%,rgb(10, 111, 0) 95.729%);    min-height: 100vh;
+    font-family: 'Forum', sans-serif;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+    position: relative;
+}
+
+.container{
+    display: grid;
+    place-items: center;
+}
+
+.logout{
+    position: absolute; 
+    top: 26px;
+    right: 30px;
+}
+
+.logout_link{
+    text-decoration: none;
+    color: white;
+}
+
+.logout_link:hover{
+    color: black;
+}

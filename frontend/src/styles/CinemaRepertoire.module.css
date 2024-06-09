@@ -6,6 +6,19 @@
     padding: 20px;
 }
 
+.cinema{
+    display: grid;
+    grid-template-columns: 250px auto;
+        border-radius: 20px;
+    background: rgba(117, 117, 117, 0.34);
+    padding: 20px;
+}
+
+.cinema_name{
+    align-self: center;
+    justify-self: center;
+}
+
 .image{
     width: 120px;
     height: 150px;
@@ -24,6 +37,8 @@
     display: inline-flex;
     column-gap: 10px;
     row-gap: 10px;
+    flex-wrap: wrap;
+    height: auto;
 }
 
 .session{
@@ -31,6 +46,11 @@
     border-radius: 20px;
     background: rgb(210, 126, 79);
     width: 100px;
+    cursor: pointer;
+}
+
+.session:hover{
+    background: rgb(170, 102, 63);
 }
 
 .time{

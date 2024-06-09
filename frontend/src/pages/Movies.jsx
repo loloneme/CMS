@@ -4,10 +4,17 @@ import style from "../styles/MoviePage.module.css"
 import AddButton from "../components/AddButton"
 import MoviesSwiper from "../components/MoviesSwiper"
 import Modal from "../components/Modal"
-import AddMovieModal from "../components/AddMovieModal"
+import AddMovieModal from "../components/MovieModal"
 import { getAllGenres, getAllMovies } from "../utils/DataFetching"
+import { useUser } from "../utils/UserContext";
+import { useNavigate } from "react-router-dom"
+
+
 
 const MoviePage = () => {
+  const { user } = useUser()
+  const navigate = useNavigate()
+
     const [movies, setMovies] = useState([])
     const [genres, setGenres] = useState([])
 
@@ -37,10 +44,15 @@ const MoviePage = () => {
               console.error('Error fetching genres:', error);
             }
           };
+
+          if (user && user.role !== "CINEMA_WORKER" && user.role !== "INFO_SERVICE") {
+            navigate("/forbidden");
+        }
+
       
           fetchMovies();
           fetchGenres();
-    }, [])
+    }, [user, navigate])
 
 
     return (
@@ -56,7 +68,9 @@ const MoviePage = () => {
                 }}/>
             </div>
             <div style={{ marginTop: "10px" }}>
-                <AddButton onClick={() => setAddMovieModalIsOpen(true)} />
+              { user && user.role === 'INFO_SERVICE' && <AddButton onClick={() => setAddMovieModalIsOpen(true)} />
+
+              }
                 <Modal 
                     isOpen={addMovieModalIsOpen}
                     onClose={() => {

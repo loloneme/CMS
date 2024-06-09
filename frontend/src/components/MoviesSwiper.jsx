@@ -1,9 +1,9 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination} from 'swiper/modules';
 import MovieCard from './MovieCard';
 
 import Select from "react-select"
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';

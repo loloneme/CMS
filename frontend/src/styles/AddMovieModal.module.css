@@ -17,6 +17,11 @@
     overflow-x: hidden;
 }
 
+.form_container{
+    height: 900px;
+    overflow-y: auto;
+}
+
 .image_uploading{
     display: flex;
     flex-direction: column;
