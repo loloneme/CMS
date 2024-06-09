@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createUser, deleteUser, getAllCinemaNames, getRoles, updateUser } from "../utils/DataFetching";
+import { createUser, getAllCinemaNames, getRoles, updateUser } from "../utils/DataFetching";
 import Select from 'react-select/creatable';
 import CustomStyles from "../styles/CustomStylesSelect";
 import style from "../styles/AddModal.module.css"
