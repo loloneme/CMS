@@ -123,6 +123,14 @@ func (r *MoviePostgres) GetAllCountries() ([]entities.Country, error) {
 	return res, err
 }
 
+func (r *MoviePostgres) GetAllMovieNames() ([]entities.Movie, error) {
+	var res []entities.Movie
+	err := r.db.Select(&res, `SELECT id, name FROM movie`)
+
+	return res, err
+
+}
+
 func (r *MoviePostgres) CreateMovie(movie *entities.Movie) (int64, error) {
 	var movieID int64
 

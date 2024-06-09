@@ -2,7 +2,6 @@ package service
 
 import (
 	"errors"
-	"fmt"
 	"github.com/loloneme/CMS/internal/entities"
 	"github.com/loloneme/CMS/internal/repository"
 	"github.com/loloneme/CMS/internal/utils"
@@ -35,12 +34,13 @@ func (s *AuthService) Login(user entities.User) (string, error) {
 	}
 
 	if !utils.CheckPassword(user.Password, userInfo.Password) {
-		return "", fmt.Errorf("wrong password")
+		return "", errors.New("wrong password")
 	}
 
 	return s.tokenManager.GenerateJWTToken(Payload{
 		UserId: userInfo.Id,
-		Role:   "",
+		Role:   userInfo.Role,
+		Cinema: userInfo.CinemaId,
 	})
 }
 
@@ -50,6 +50,18 @@ func (s *AuthService) GetUserByEmail(email string) (entities.User, error) {
 
 func (s *AuthService) GetUserByID(userID int64) (entities.User, error) {
 	return s.repo.GetUserByID(userID)
+}
+
+func (s *AuthService) GetRoles() ([]entities.Role, error) {
+	return s.repo.GetRoles()
+}
+
+func (s *AuthService) GetUsers() ([]entities.User, error) {
+	return s.repo.GetUsers()
+}
+
+func (s *AuthService) UpdateUser(user *entities.User) error {
+	return s.repo.UpdateUser(user)
 }
 
 func (s *AuthService) DeleteUser(userID int64) error {

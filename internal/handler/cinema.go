@@ -28,19 +28,20 @@ func (h *Handler) GetCinema(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-//func (h *Handler) GetAllCities(c *gin.Context) {
-//	res, err := h.services.GetAllCities()
-//	if err != nil {
-//		ErrorResponse(c, http.StatusInternalServerError, err.Error())
-//	}
-//	c.JSON(200, res)
-//}
-
 func (h *Handler) GetAllCategories(c *gin.Context) {
-	res, err := h.services.GetAllCategories()
+	res, err := h.services.Cinema.GetAllCategories()
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
+	c.JSON(200, res)
+}
+
+func (h *Handler) GetAllHallCategories(c *gin.Context) {
+	res, err := h.services.Cinema.GetAllHallCategories()
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
 	c.JSON(200, res)
 }
 
@@ -56,6 +57,7 @@ func (h *Handler) CreateCinema(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, map[string]interface{}{
 		"cinema_id": cinemaID,
+		"message":   "Кинотеатра успешно создан!",
 	})
 }
 

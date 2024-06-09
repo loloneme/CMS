@@ -14,7 +14,12 @@ func NewRepertoireService(repo repository.Repertoire) *RepertoireService {
 }
 
 func (s *RepertoireService) CreateSession(session *entities.Session) (int64, error) {
-	return s.repo.CreateSession(session)
+	if ok, err := s.repo.IntersectsWithAnySession(session); err != nil {
+		return 0, err
+	} else if !ok {
+		return s.repo.CreateSession(session)
+	}
+	return 0, nil
 }
 
 func (s *RepertoireService) GetSession(sessionID int64) (entities.Session, error) {
@@ -32,10 +37,6 @@ func (s *RepertoireService) GetSession(sessionID int64) (entities.Session, error
 	return res, nil
 }
 
-func (s *RepertoireService) GetAllSessionsByCinemas() ([]entities.Repertoire, error) {
-	return s.repo.GetAllSessionsByCinemas()
-}
-
 func (s *RepertoireService) GetAllMovies() ([]entities.Movie, error) {
 	return s.repo.GetAllMovies()
 }
@@ -44,6 +45,14 @@ func (s *RepertoireService) GetAllCinemas() ([]entities.Cinema, error) {
 }
 func (s *RepertoireService) GetSessionsByCinemaAndMovie(cinemaID, movieID int64) ([]entities.Session, error) {
 	return s.repo.GetSessionsByCinemaAndMovie(cinemaID, movieID)
+}
+
+func (s *RepertoireService) UpdateSession(session *entities.Session) error {
+	return s.repo.UpdateSession(session)
+}
+
+func (s *RepertoireService) DeleteSession(sessionID int64) error {
+	return s.repo.DeleteSession(sessionID)
 }
 
 //func (s *RepertoireService) GetAllSessions() ([]entities.Session, error) {

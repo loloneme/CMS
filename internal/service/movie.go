@@ -54,6 +54,10 @@ func (s *MovieService) GetAllCountries() ([]entities.Country, error) {
 	return s.repo.GetAllCountries()
 }
 
+func (s *MovieService) GetAllMovieNames() ([]entities.Movie, error) {
+	return s.repo.GetAllMovieNames()
+}
+
 func (s *MovieService) UpdateMovie(movie *entities.Movie) error {
 	err := s.repo.UpdateMovie(movie)
 
@@ -99,11 +103,3 @@ func (s *MovieService) UpdateMovie(movie *entities.Movie) error {
 func (s *MovieService) DeleteMovie(movieID int64) error {
 	return s.repo.DeleteMovie(movieID)
 }
-
-//func (s *MovieService) UpdateCinema(cinema *entities.Cinema) error {
-//	return s.repo.UpdateCinema(cinema)
-//}
-//
-//func (s *MovieService) DeleteCinema(cinemaID int64) error {
-//	return s.repo.DeleteCinema(cinemaID)
-//}

@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/loloneme/CMS/internal/entities"
 	"github.com/loloneme/CMS/internal/repository"
+	"time"
 )
 
 type Service struct {
@@ -10,59 +11,48 @@ type Service struct {
 	TokenManager
 	Cinema
 	Movie
-	Hall
 	Repertoire
 }
 
 type Authorization interface {
 	CreateUser(user *entities.User) (int64, error)
 	Login(user entities.User) (string, error)
+
 	GetUserByEmail(email string) (entities.User, error)
 	GetUserByID(userID int64) (entities.User, error)
+	GetUsers() ([]entities.User, error)
+	GetRoles() ([]entities.Role, error)
+
+	UpdateUser(user *entities.User) error
 	DeleteUser(userID int64) error
 }
 
 type TokenManager interface {
 	GenerateJWTToken(payload Payload) (string, error)
-	GenerateRefreshToken(userID int64) (string, error)
-
 	ParseJWTToken(accessToken string) (*Payload, error)
-	ParseRefreshToken(refreshToken string) (int64, error)
-	//SaveRefreshToken(token string) error
-	//DeleteRefreshToken(token string) error
 }
 
 type Cinema interface {
 	CreateCinema(cinema *entities.Cinema) (int64, error)
-	//GetCinema(cinemaId int64) (entities.Cinema, error)
+
 	GetAllCinemas() ([]entities.Cinema, error)
 	GetCinemaById(cinemaID int64) (entities.Cinema, error)
-
+	GetAllHallCategories() ([]entities.HallCategory, error)
 	GetAllCategories() ([]entities.Category, error)
 
-	//CreateCategory(category string) (int64, error)
 	UpdateCinema(cinema *entities.Cinema) error
 	DeleteCinema(cinemaID int64) error
 }
 
-type Hall interface {
-	//CreateHall(cinema *entities.Cinema) (int64, error)
-	//GetCinema(cinemaId int64) (entities.Cinema, error)
-	//GetAllHalls() ([]entities.Cinema, error)
-	GetAllHallCategories() ([]entities.HallCategory, error)
-
-	//CreateCategory(category string) (int64, error)
-	//UpdateCinema(cinema *entities.Cinema) error
-	//DeleteCinema(cinemaID int64) error
-}
-
 type Movie interface {
 	CreateMovie(movie *entities.Movie) (int64, error)
+
 	GetAllMovies() ([]entities.Movie, error)
 	GetAllGenres() ([]entities.Genre, error)
 	GetAllActors() ([]entities.Actor, error)
 	GetAllStudios() ([]entities.Studio, error)
 	GetAllCountries() ([]entities.Country, error)
+	GetAllMovieNames() ([]entities.Movie, error)
 
 	UpdateMovie(movie *entities.Movie) error
 	DeleteMovie(movieID int64) error
@@ -70,25 +60,22 @@ type Movie interface {
 
 type Repertoire interface {
 	CreateSession(session *entities.Session) (int64, error)
+
 	GetSession(sessionId int64) (entities.Session, error)
-	GetAllSessionsByCinemas() ([]entities.Repertoire, error)
 	GetAllMovies() ([]entities.Movie, error)
 	GetAllCinemas() ([]entities.Cinema, error)
 	GetSessionsByCinemaAndMovie(cinemaID, movieID int64) ([]entities.Session, error)
-	//GetSessionsByMovie(movieID int64) ([]entities.Session, error)
-	//GetAllSessionsByMovie() ([]entities.Session, error)
 
-	//CreateCategory(category string) (int64, error)
-	//UpdateCinema(cinema *entities.Cinema) error
-	//DeleteCinema(cinemaID int64) error
+	UpdateSession(session *entities.Session) error
+	DeleteSession(sessionID int64) error
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
-		Authorization: NewAuthService(repos.Authorization, NewTokenManagerService(repos)),
+		Authorization: NewAuthService(repos.Authorization, NewTokenManagerService(time.Minute*300)),
+		TokenManager:  NewTokenManagerService(time.Minute * 300),
 		Cinema:        NewCinemaService(repos.Cinema),
 		Movie:         NewMovieService(repos.Movie),
-		Hall:          NewHallService(repos.Hall),
 		Repertoire:    NewRepertoireService(repos.Repertoire),
 	}
 }

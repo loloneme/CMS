@@ -25,6 +25,10 @@ func (s *CinemaService) GetAllCategories() ([]entities.Category, error) {
 	return s.repo.GetAllCategories()
 }
 
+func (s *CinemaService) GetAllHallCategories() ([]entities.HallCategory, error) {
+	return s.repo.GetAllHallCategories()
+}
+
 func (s *CinemaService) CreateCinema(cinema *entities.Cinema) (int64, error) {
 	id, err := s.repo.CreateCinema(cinema)
 	if err != nil {

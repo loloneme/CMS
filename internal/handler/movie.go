@@ -38,6 +38,7 @@ func (h *Handler) GetAllCountries(c *gin.Context) {
 	res, err := h.services.GetAllCountries()
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
 	c.JSON(200, res)
@@ -47,6 +48,17 @@ func (h *Handler) GetAllActors(c *gin.Context) {
 	res, err := h.services.GetAllActors()
 	if err != nil {
 		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(200, res)
+}
+
+func (h *Handler) GetAllMovieNames(c *gin.Context) {
+	res, err := h.services.Movie.GetAllMovieNames()
+	if err != nil {
+		ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
 	c.JSON(200, res)
@@ -65,6 +77,7 @@ func (h *Handler) CreateMovie(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, map[string]interface{}{
 		"movie_id": movieID,
+		"message":  "Фильм успешно создан",
 	})
 }
 

@@ -14,12 +14,8 @@ func NewCinemaPostgres(db *sqlx.DB) *CinemaPostgres {
 	return &CinemaPostgres{db: db}
 }
 
-//TODO: сделать получение театра по айди, либо джсоном собирать залы
-
 func (r *CinemaPostgres) GetAllCinemas() ([]entities.Cinema, error) {
 	var res []entities.Cinema
-	//var statuses map[int64]interface{}
-	//var categories map[int64]interface{}
 
 	query := `
         SELECT c.id, c.name, c.address, c.category_id, cg.name AS category_name,
@@ -62,7 +58,7 @@ func (r *CinemaPostgres) GetHallsByCinemaId(cinemaID int64) ([]entities.Hall, er
 	var res []entities.Hall
 
 	query := `SELECT h.id, h.cinema_id, h.seats,
-       		h.name, h.hall_category_id, 
+       		h.name as hall_name, h.hall_category_id, 
        		hc.hall_category AS hall_category_name       		
 			FROM hall h
 			JOIN hall_category hc on h.hall_category_id = hc.id
@@ -77,12 +73,6 @@ func (r *CinemaPostgres) GetAllCategories() ([]entities.Category, error) {
 	err := r.db.Select(&res, `SELECT * FROM "category"`)
 	return res, err
 }
-
-//func (r *CinemaPostgres) GetAllCities() ([]entities.City, error) {
-//	var res []entities.City
-//	err := r.db.Select(&res, `SELECT * FROM "city"`)
-//	return res, err
-//}
 
 func (r *CinemaPostgres) CreateCinema(cinema *entities.Cinema) (int64, error) {
 	var cinemaID int64
@@ -113,21 +103,6 @@ func (r *CinemaPostgres) GetCategoryId(category string) (int64, error) {
 
 	return id, nil
 }
-
-//func (r *CinemaPostgres) GetCityId(city string) (int64, error) {
-//	var id int64
-//	err := r.db.Get(&id, `SELECT id FROM city WHERE city=$1`, city)
-//	if err == sql.ErrNoRows {
-//		err := r.db.QueryRowx("INSERT INTO city (city) VALUES ($1) RETURNING id", city).Scan(&id)
-//		if err != nil {
-//			return 0, err
-//		}
-//	} else if err != nil {
-//		return 0, err
-//	}
-//
-//	return id, nil
-//}
 
 func (r *CinemaPostgres) GetHallCategoryId(category string) (int64, error) {
 	var id int64
@@ -204,6 +179,13 @@ func (r *CinemaPostgres) UpdateHalls(cinemaID int64, halls []entities.Hall) erro
 		}
 	}
 	return nil
+}
+
+func (r *CinemaPostgres) GetAllHallCategories() ([]entities.HallCategory, error) {
+	var res []entities.HallCategory
+
+	err := r.db.Select(&res, `SELECT * FROM hall_category`)
+	return res, err
 }
 
 func (r *CinemaPostgres) UpdateCinema(cinema *entities.Cinema) error {

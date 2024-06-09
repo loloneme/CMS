@@ -5,35 +5,36 @@ import (
 )
 
 type User struct {
-	Id       int64  `json:"user_id" db:"id"`
-	FullName string `json:"full_name" db:"fullname"`
-	Phone    string `json:"phone" db:"phone"`
-	RoleId   int64  `json:"role_id" db:"role"`
+	Id         int64  `json:"user_id" db:"id"`
+	FullName   string `json:"full_name" db:"fullname"`
+	Phone      string `json:"phone" db:"phone"`
+	RoleId     int64  `json:"role_id" db:"role_id"`
+	Role       string `json:"role_name" db:"role"`
+	CinemaId   int64  `json:"cinema_id,omitempty" db:"cinema_id"`
+	CinemaName string `json:"cinema_name" db:"cinema_name"`
+
 	Email    string `json:"email" db:"email"`
 	Password string `json:"password" db:"password"`
+}
+
+type Role struct {
+	Id   int64  `json:"role_id" db:"id"`
+	Name string `json:"role" db:"name"`
 }
 
 type Cinema struct {
 	Id      int64  `json:"cinema_id" db:"id"`
 	Name    string `json:"cinema_name" db:"name"`
-	Address string `json:"address" db:"address"`
+	Address string `json:"address,omitempty" db:"address"`
 
-	Image string `json:"cinema_image" db:"image"`
-	Halls []Hall `json:"halls"`
+	Image string `json:"cinema_image,omitempty" db:"image"`
+	Halls []Hall `json:"halls,omitempty"`
 
-	Category   string `json:"category_name" db:"category_name"`
-	CategoryId int64  `json:"category_id" db:"category_id"`
+	Category   string `json:"category_name,omitempty" db:"category_name"`
+	CategoryId int64  `json:"category_id,omitempty" db:"category_id"`
 
-	//City   string `json:"city" db:"city"`
-	//CityId int64  `json:"city_id" db:"city_id"`
-
-	Phone string `json:"cinema_phone" db:"phone"`
+	Phone string `json:"cinema_phone,omitempty" db:"phone"`
 }
-
-//type City struct {
-//	Id   int64  `json:"city_id" db:"id"`
-//	Name string `json:"city" db:"city"`
-//}
 
 type Category struct {
 	Id   int64  `json:"category_id" db:"id"`
@@ -100,7 +101,7 @@ type Hall struct {
 	Id       int64  `json:"hall_id" db:"id"`
 	CinemaId int64  `json:"cinema_id" db:"cinema_id"`
 	Seats    int    `json:"hall_seats" db:"seats"`
-	Name     string `json:"hall_name" db:"name"`
+	Name     string `json:"hall_name" db:"hall_name"`
 
 	HallCategoryId int64  `json:"hall_category_id" db:"hall_category_id"`
 	Category       string `json:"hall_category_name" db:"hall_category_name"`
@@ -112,30 +113,19 @@ type HallCategory struct {
 }
 
 type Session struct {
-	Id       int64  `json:"session_id" db:"id"`
-	HallId   int64  `json:"hall_id,omitempty" db:"hall_id"`
-	HallName string `json:"hall_name,omitempty" db:"hall_name"`
+	Id     int64 `json:"session_id" db:"id"`
+	HallId int64 `json:"hall_id,omitempty" db:"hall_id"`
 
-	CinemaId int64 `json:"cinema_id,omitempty" db:"cinema_id"`
+	HallName     string `json:"hall_name,omitempty" db:"hall_name"`
+	HallSeats    int    `json:"hall_seats,omitempty" db:"seats"`
+	HallCategory string `json:"hall_category_name,omitempty" db:"hall_category"`
 
 	MovieId int64 `json:"movie_id,omitempty" db:"movie_id"`
 	Movie   Movie `json:"movie,omitempty"`
 
+	CinemaId int64 `json:"cinema_id,omitempty" db:"cinema_id"`
+
 	Date        string `json:"session_date" db:"date"`
 	Cost        int    `json:"cost" db:"cost"`
 	BookedSeats int    `json:"booked_seats" db:"booked_seats"`
-}
-
-type MovieRepertoire struct {
-	Id       int64     `json:"movie_id" db:"id"`
-	Name     string    `json:"movie_name" db:"name"`
-	Image    string    `json:"movie_image" db:"image"`
-	Sessions []Session `json:"sessions"`
-}
-
-type Repertoire struct {
-	CinemaId   int64  `json:"cinema_id" db:"cinema_id"`
-	CinemaName string `json:"cinema_name" db:"cinema_name"`
-
-	Movies []MovieRepertoire `json:"movies"`
 }

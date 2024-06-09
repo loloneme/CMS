@@ -20,64 +20,58 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 	auth := router.Group("/auth")
 	{
-		auth.POST("/sign-up", h.Register)
+		auth.POST("/sign-up", h.Authentication(), h.Authorization("ADMIN"), h.Register)
 		auth.POST("/sign-in", h.Login)
 	}
 
 	api := router.Group("/handler")
 	{
+		user := api.Group("/user")
+		{
+			user.GET("/all", h.Authentication(), h.Authorization("ADMIN"), h.GetAllUsers)
+			user.GET("/roles", h.Authentication(), h.Authorization("ADMIN"), h.GetRoles)
+
+			user.PUT("/:id", h.Authentication(), h.Authorization("ADMIN"), h.UpdateUser)
+			user.DELETE("/:id", h.Authentication(), h.Authorization("ADMIN"), h.DeleteUser)
+
+		}
+
 		cinema := api.Group("/cinema")
 		{
-			cinema.GET("/all", h.GetAllCinemas)
-			cinema.GET("/categories", h.GetAllCategories)
-			cinema.GET("/:id", h.GetCinema)
+			cinema.GET("/all", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllCinemas)
+			cinema.GET("/categories", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllCategories)
+			cinema.GET("/:id", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetCinema)
+			cinema.GET("/halls/categories", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllHallCategories)
 
-			//cinema.GET("/:id", h.getCinema)
-			//
-			cinema.POST("", h.CreateCinema)
-			cinema.PUT("/:id", h.UpdateCinema)
-			cinema.DELETE("/:id", h.DeleteCinema)
+			cinema.POST("", h.Authentication(), h.Authorization("INFO_SERVICE"), h.CreateCinema)
+			cinema.PUT("/:id", h.Authentication(), h.Authorization("CINEMA_WORKER"), h.UpdateCinema)
+			cinema.DELETE("/:id", h.Authentication(), h.Authorization("INFO_SERVICE"), h.DeleteCinema)
 		}
 
 		movie := api.Group("/movie")
 		{
-			movie.GET("/all", h.GetAllMovies)
-			movie.GET("/genres", h.GetAllGenres)
-			movie.GET("/actors", h.GetAllActors)
-			movie.GET("/studios", h.GetAllStudios)
-			movie.GET("/countries", h.GetAllCountries)
+			movie.GET("/all", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllMovies)
+			movie.GET("/all/name", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllMovieNames)
+			movie.GET("/genres", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllGenres)
+			movie.GET("/actors", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllActors)
+			movie.GET("/studios", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllStudios)
+			movie.GET("/countries", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllCountries)
 
-			movie.POST("", h.CreateMovie)
-			movie.PUT("/:id", h.UpdateMovie)
-			movie.DELETE("/:id", h.DeleteMovie)
+			movie.POST("", h.Authentication(), h.Authorization("INFO_SERVICE"), h.CreateMovie)
+			movie.PUT("/:id", h.Authentication(), h.Authorization("INFO_SERVICE"), h.UpdateMovie)
+			movie.DELETE("/:id", h.Authentication(), h.Authorization("INFO_SERVICE"), h.DeleteMovie)
 		}
 
-		hall := api.Group("/hall")
-		{
-			//movie.GET("/all", h.GetAllMovies)
-			hall.GET("/categories", h.GetAllHallCategories)
-			//movie.GET("/actors", h.GetAllActors)
-			//movie.GET("/studios", h.GetAllStudios)
-
-			//movie.GET("/:id", h.getCinema)
-			//
-			//movie.POST("", h.CreateMovie)
-			//movie.PUT("/:id", h.UpdateCinema)
-			//movie.DELETE("/:id", h.DeleteCinema)
-		}
 		repertoire := api.Group("/repertoire")
 		{
-			//repertoire.GET("/all", h.GetAllSessions)
-			repertoire.GET("/sessions/:id", h.GetSession)
-			repertoire.GET("/sessions", h.GetSessionsByCinemaAndMovie)
-			repertoire.GET("/cinemas/all", h.GetAllCinemasBriefInfo)
-			repertoire.GET("/movies/all", h.GetAllMoviesBriefInfo)
+			repertoire.GET("/sessions", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetSessionsByCinemaAndMovie)
+			repertoire.GET("/cinemas/all", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER", "ADMIN"), h.GetAllCinemasBriefInfo)
+			repertoire.GET("/movies/all", h.Authentication(), h.Authorization("INFO_SERVICE", "CINEMA_WORKER"), h.GetAllMoviesBriefInfo)
 
-			repertoire.POST("", h.CreateSession)
-			//repertoire.PUT("/:id", h.UpdateCinema)
-			//repertoire.DELETE("/:id", h.DeleteCinema)
+			repertoire.POST("", h.Authentication(), h.Authorization("CINEMA_WORKER"), h.CreateSession)
+			repertoire.PUT("/:id", h.Authentication(), h.Authorization("CINEMA_WORKER"), h.UpdateSession)
+			repertoire.DELETE("/:id", h.Authentication(), h.Authorization("CINEMA_WORKER"), h.DeleteSession)
 		}
-
 	}
 
 	return router

@@ -19,20 +19,6 @@ type Config struct {
 	Storage    repository.Config
 }
 
-//type HTTPServer struct {
-//	ServerPort string `env:"HTTP_SERVER_PORT"`
-//	Timeout     time.Duration `env:"HTTP_SERVER_TIMEOUT"`
-//	IdleTimeout time.Duration `env:"HTTP_SERVER_IDLE_TIMEOUT"`
-//}
-//
-//type Storage struct {
-//	Host     string `env:"POSTGRES_HOST"`
-//	Port     int    `env:"POSTGRES_PORT"`
-//	Name     string `env:"POSTGRES_DB_NAME"`
-//	Username string `env:"POSTGRES_USER"`
-//	Password string `env:"POSTGRES_PASSWORD"`
-//}
-
 func MustLoad() {
 	currDir, err := os.Getwd()
 	if err != nil {
@@ -57,5 +43,4 @@ func MustLoad() {
 	if err := srv.Run(cfg.HTTPServer, handlers.InitRoutes()); err != nil {
 		log.Fatalf("Failed to connect to server")
 	}
-
 }
