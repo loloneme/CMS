@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/loloneme/CMS/internal/config"
+	"github.com/loloneme/CMS/backend/internal/config"
 )
 
 func main() {

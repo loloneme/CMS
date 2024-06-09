@@ -16,7 +16,7 @@ const AddMovieModal = ({ setAddMovieModalIsOpen, movieInfo, isEditMode }) => {
     premiere: '2001-01-01',
     rating: '12+',
     duration: 60,
-    opertator: '',
+    operator: '',
     director: '',
     description: '',
     genres: [],
@@ -183,7 +183,7 @@ const AddMovieModal = ({ setAddMovieModalIsOpen, movieInfo, isEditMode }) => {
               }}
             />
             <label htmlFor="fileInput">Выберите фото:</label>
-            {movieData.movie_image == "" || movieData.movie_image == null ?
+            {movieData.movie_image === "" || movieData.movie_image == null ?
               <img className={style.image} style={{ objectFit: "contain" }} src="movie.svg" onClick={handleFileInput} />
               : <img className={style.image} src={`data:image/png;base64,${movieData.movie_image}`} onClick={handleFileInput} />}
           </div>

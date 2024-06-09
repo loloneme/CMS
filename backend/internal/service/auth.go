@@ -2,9 +2,9 @@ package service
 
 import (
 	"errors"
-	"github.com/loloneme/CMS/internal/entities"
-	"github.com/loloneme/CMS/internal/repository"
-	"github.com/loloneme/CMS/internal/utils"
+	"github.com/loloneme/CMS/backend/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/repository"
+	"github.com/loloneme/CMS/backend/internal/utils"
 )
 
 type AuthService struct {

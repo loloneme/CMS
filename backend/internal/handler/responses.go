@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/loloneme/CMS/internal/logger"
+	"github.com/loloneme/CMS/backend/internal/logger"
 )
 
 type errorResponse struct {

@@ -1,4 +1,4 @@
-package CMS
+package backend
 
 import (
 	"context"

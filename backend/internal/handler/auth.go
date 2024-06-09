@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/loloneme/CMS/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/entities"
 	"net/http"
 	"strconv"
 )

@@ -12,13 +12,12 @@ const Sessions = ({sessions, onClick}) =>{
     return (
         <> 
             {
-                sessions !== null &&
                 sortedSessions.map((s) => {
-                    const time = new Date(s.session_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    const time = new Date(s.session_date).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
 
                     return (
                         <div className={style.session} onClick={() => onClick(s)}>
-                            <div className={style.time}> 
+                            <div className={style.time}>
                                 {time}
                             </div>
                         </div>

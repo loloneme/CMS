@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 	"github.com/jmoiron/sqlx"
-	"github.com/loloneme/CMS/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/entities"
 )
 
 type CinemaPostgres struct {

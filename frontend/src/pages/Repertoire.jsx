@@ -94,7 +94,7 @@ const RepertoirePage = () => {
                                         onChange={(newValue) => setSelectedCinema(newValue)}
                                         placeholder="Выбрать"
                                         styles={CustomStyles}
-                                        isDisabled={user.role === 'CINEMA_WORKER' ? true:false}
+                                        isDisabled={user.role === 'CINEMA_WORKER'}
                                     />
                                 )
                             }

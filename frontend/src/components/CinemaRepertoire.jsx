@@ -34,7 +34,7 @@ const CinemaRepertoire = ({ movies, cinema, date, onClick }) => {
         <>  
             {sessions.map((item) => {
                 return (
-                    item.sessions.length != 0 &&
+                    item.sessions.length !== 0 &&
                     <div className={style.movie} style={{marginBottom: "10px"}}>
                         <img className={style.image} src={`data:image/png;base64,${item.movie_image}`}/>
                         <div className={style.info}>

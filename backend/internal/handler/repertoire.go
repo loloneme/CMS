@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/loloneme/CMS/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/entities"
 	"net/http"
 	"strconv"
 )
@@ -41,16 +41,6 @@ func (h *Handler) CreateSession(c *gin.Context) {
 		"message":    "Сеанс успешно создан!",
 	})
 }
-
-//func (h *Handler) GetAllSessionsByCinema(c *gin.Context) {
-//	res, err := h.services.GetAllSessionsByCinemas()
-//	if err != nil {
-//		ErrorResponse(c, http.StatusInternalServerError, err.Error())
-//		return
-//
-//	}
-//	c.JSON(200, res)
-//}
 
 func (h *Handler) GetAllMoviesBriefInfo(c *gin.Context) {
 	res, err := h.services.Repertoire.GetAllMovies()

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/loloneme/CMS/internal/entities"
-	"github.com/loloneme/CMS/internal/repository"
+	"github.com/loloneme/CMS/backend/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/repository"
 )
 
 type MovieService struct {

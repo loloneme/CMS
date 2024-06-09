@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/loloneme/CMS/internal/entities"
-	"github.com/loloneme/CMS/internal/repository"
+	"github.com/loloneme/CMS/backend/internal/entities"
+	"github.com/loloneme/CMS/backend/internal/repository"
 )
 
 type RepertoireService struct {
@@ -54,7 +54,3 @@ func (s *RepertoireService) UpdateSession(session *entities.Session) error {
 func (s *RepertoireService) DeleteSession(sessionID int64) error {
 	return s.repo.DeleteSession(sessionID)
 }
-
-//func (s *RepertoireService) GetAllSessions() ([]entities.Session, error) {
-//	return s.repo.GetAllSessions()
-//}
