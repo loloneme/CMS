@@ -1,0 +1,52 @@
+.container{
+    width: 90%;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.table{
+    font-family: 'Forum', sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.table th,
+.table td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight:normal;
+
+}
+
+.table td {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.table button {
+    font-family: 'Forum', sans-serif;
+    margin: 0px 10px;
+    font-size: 20px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table button:hover {
+    background-color: white;
+    color: black;
+}

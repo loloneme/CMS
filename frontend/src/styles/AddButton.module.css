@@ -1,0 +1,26 @@
+.add_button {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    margin-left: auto;
+    background-color: rgba(120, 122, 123, 0.65);
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    z-index: 1000;
+  }
+  
+  .add_button:hover {
+    background-color: rgba(0, 0, 0, 0.775);
+    color: rgba(213, 212, 213, 0.65);
+
+  }
+  

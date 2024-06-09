@@ -1,2 +1,0 @@
-# CMS
-Cinema Management System

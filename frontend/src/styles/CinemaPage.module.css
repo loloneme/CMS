@@ -1,0 +1,42 @@
+.back{
+    background: linear-gradient(135.00deg, rgb(0, 0, 0) 0.03%,rgb(37, 0, 26) 42.135%,rgb(100, 2, 57) 76.046%,rgb(158, 0, 94) 95.638%);    color: rgb(255, 255, 255);
+    height: 100vh; 
+    overflow-y: auto;
+    font-family: 'Forum', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0px;
+    text-align: left;
+    position: relative;
+}
+
+.container{
+    display: grid;
+    place-items: center;
+}
+
+.grid_container{
+    display: grid;
+    margin: 30px 0px;
+    grid-template-columns: repeat(2, 630px);
+    gap: 30px;
+}
+
+.back::-webkit-scrollbar {
+    width: 10px;
+}
+
+.back::-webkit-scrollbar-track {
+    background: transparent ;
+}
+
+.back::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 2px;
+
+}
+
+.back::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
